@@ -1,4 +1,9 @@
 mix
 ===
 
-media regulator ubuntu/android
+Media regulator ubuntu/android
+
+Protocol: "ver pswd type val end"
+
+
+
