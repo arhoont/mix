@@ -41,10 +41,11 @@ int magic(char *buf){
         return 1;
     }
     if (strcmp(tokens[1],pswd)){
-        printf("not pswd");
+        printf("not pswd\n");
         return 2;
     }
     if (strcmp(tokens[4],"end")){
+        printf("not end\n");
         return 3;
     }
     if (!(strcmp(tokens[2],"volume"))){
