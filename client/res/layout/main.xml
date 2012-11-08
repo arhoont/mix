@@ -26,5 +26,34 @@
             android:layout_height="wrap_content"
             android:text="test"
             />
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Ip"/>
+    <EditText
+            android:id="@+id/texIp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="192.168.100.4"/>
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Port"/>
+    <EditText
+            android:id="@+id/texPort"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="3426"/>
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Password"/>
+    <EditText
+            android:id="@+id/texPassw"
+            android:password="true"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="123aaa"/>
+
 </LinearLayout>
 

@@ -12,8 +12,12 @@ public class ClientActivity extends Activity {
      * Called when the activity is first created.
      */
     SeekBar volumeSB;
+    TextView testViewIp;
+    TextView testViewPort;
+    TextView testViewPassw;
     TextView testView;
     NetWClass netWClass;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,8 +25,10 @@ public class ClientActivity extends Activity {
 
         volumeSB=(SeekBar) findViewById(R.id.volumeSekBar);
         Button volumeOk=(Button) findViewById(R.id.VolumeOk);
-        testView = (TextView) findViewById(R.id.test);
-        netWClass = new NetWClass(3426,"192.168.100.4");
+        testViewIp = (TextView) findViewById(R.id.texIp);
+        testViewPort = (TextView) findViewById(R.id.texPort);
+        testViewPassw = (TextView) findViewById(R.id.texPassw);
+        netWClass = new NetWClass(testViewIp,testViewPort,testViewPassw);
 
         volumeOk.setOnClickListener(new View.OnClickListener() {
             @Override
