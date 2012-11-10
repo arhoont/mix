@@ -4,6 +4,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <syslog.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <unistd.h>
+
 int port;
 char *ver;
 char *pswd;
@@ -20,15 +26,13 @@ int readConfig(){
     sink=atoi(str);
     fclose(file);
 
-    printf("%d\n",port);
-    printf("%d\n",sink);
 }
 
 int magic(char *buf){
     char *tokens[10];
     int i=0;
     char *token, *last;
-    printf ("Accept some msg from client\n");
+//    printf ("Accept some msg from client\n");
     i=0;
     tokens[i] = strtok_r(buf, " ,", &last);
     while (tokens[i] != NULL) {
@@ -37,35 +41,61 @@ int magic(char *buf){
     }
     i--;
     if (strcmp(tokens[0],ver)){
-        printf("not ver\n");
+//        printf("not ver\n");
         return 1;
     }
     if (strcmp(tokens[1],pswd)){
-        printf("not pswd\n");
+//        printf("not pswd\n");
         return 2;
     }
     if (strcmp(tokens[4],"end")){
-        printf("not end\n");
+//        printf("not end\n");
         return 3;
     }
     if (!(strcmp(tokens[2],"volume"))){
         char str[100];
-//        printf("%d ttt\n",sink);
-//        printf("%s ttt\n",tokens[3]);
-//        printf("'%d' --- %s",sink,tokens[3]);
-        
         sprintf(str,"pactl set-sink-volume '%d' %s",sink,tokens[3]);
         system(str);
-        printf("%s === \n",str);
+//        printf("%s === \n",str);
     }
 }
-
-int main()
-{
+void becomeADaemon(){
+    pid_t pid, sid;
+    pid = fork();
+    if (pid < 0) {
+		exit(EXIT_FAILURE);
+    }
+    if (pid > 0) {
+		exit(EXIT_SUCCESS);
+    }
+    umask(0);
+    /* Open any logs here */        
+	openlog("Mixer log", LOG_PID | LOG_CONS, LOG_DAEMON);
+    /* Create a new SID for the child process */
+    sid = setsid();
+    if (sid < 0) {
+		syslog(LOG_INFO, "can't set sid");
+	    exit(EXIT_FAILURE);
+    }
+    /* Change the current working directory */
+    if ((chdir("/")) < 0) {
+		syslog(LoG_INFO, "can't change dir");
+        exit(EXIT_FAILURE);
+    }
+        
+    /* Close out the standard file descriptors */
+    close(STDIN_FILENO);
+    close(STDOUT_FILENO);
+    close(STDERR_FILENO);
+	syslog(LOG_INFO, "Daemon started");
+	closelog();
+}
+int main(){
     readConfig();
     pswd="123aaa";
     ver="v1";
-    printf("start\n");
+//  printf("start\n");
+	becomeADaemon();
     int sock, listener;
     struct sockaddr_in addr;
     char buf[1024];
@@ -87,7 +117,10 @@ int main()
     }
 
     listen(listener, 1);
-    
+    openlog("Some test log", LOG_PID | LOG_CONS, LOG_DAEMON);
+    syslog(LOG_INFO, "Daemon started on");
+    closelog();
+
     while(1)
     {
         sock = accept(listener, NULL, NULL);
