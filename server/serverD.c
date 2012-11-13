@@ -79,7 +79,7 @@ void becomeADaemon(){
     }
     /* Change the current working directory */
     if ((chdir("/")) < 0) {
-		syslog(LoG_INFO, "can't change dir");
+		syslog(LOG_INFO, "can't change dir");
         exit(EXIT_FAILURE);
     }
         
@@ -90,11 +90,15 @@ void becomeADaemon(){
 	syslog(LOG_INFO, "Daemon started");
 	closelog();
 }
-int main(){
+int main(int argc, char **argv){
+    openlog("Some test log", LOG_PID | LOG_CONS, LOG_DAEMON);
+	if(argc <= 1) {
+		syslog(LOG_INFO, "Can't start daemon, no password");
+		return 1;
+    }
     readConfig();
-    pswd="123aaa";
+    pswd=argv[1];
     ver="v1";
-//  printf("start\n");
 	becomeADaemon();
     int sock, listener;
     struct sockaddr_in addr;
@@ -117,7 +121,6 @@ int main(){
     }
 
     listen(listener, 1);
-    openlog("Some test log", LOG_PID | LOG_CONS, LOG_DAEMON);
     syslog(LOG_INFO, "Daemon started on");
     closelog();
 
