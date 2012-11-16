@@ -18,14 +18,44 @@
             android:layout_marginRight="30dp"/>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:orientation="horizontal"
+                  android:gravity="center"
                   android:layout_width="fill_parent"
-                  android:layout_height="wrap_content"
-            >
+                  android:layout_height="wrap_content">
+
         <Button
                 android:id="@+id/VolumeOk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Ok"/>
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="horizontal"
+                  android:gravity="center"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content">
+
+        <Button
+                android:id="@+id/Play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Play"/>
+        <Button
+                android:id="@+id/Pause"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pause"/>
+        <Button
+                android:id="@+id/Prev"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Prev"/>
+        <Button
+                android:id="@+id/Next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Next"/>
+
 
     </LinearLayout>
     <TextView

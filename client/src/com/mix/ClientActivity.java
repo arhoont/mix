@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import static android.view.View.*;
+
 public class ClientActivity extends Activity {
 
     SeekBar volumeSB;
@@ -43,7 +45,7 @@ public class ClientActivity extends Activity {
 
         netWClass = new NetWClass(textViewIp, textViewPort, textViewPassw);
         testView = (TextView) findViewById(R.id.test);
-        volumeOk.setOnClickListener(new View.OnClickListener() {
+        volumeOk.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 boolean b=netWClass.changeVol(volumeSB.getProgress(),testView);
@@ -65,7 +67,46 @@ public class ClientActivity extends Activity {
             }
         });
 
+        Button play = (Button)findViewById(R.id.Play);
+        play.setOnClickListener(new Listner("play"));
+
+        Button pause = (Button)findViewById(R.id.Pause);
+        pause.setOnClickListener(new Listner("pause"));
+
+        Button next = (Button)findViewById(R.id.Next);
+        next.setOnClickListener(new Listner("next"));
+
+        Button prev = (Button)findViewById(R.id.Prev);
+        prev.setOnClickListener(new Listner("prev"));
 
 
+
+    }
+    class Listner implements OnClickListener {
+        String val;
+
+        Listner(String val) {
+            this.val = val;
+        }
+
+        @Override
+        public void onClick(View view) {
+            boolean b=netWClass.changeTrack(val);
+            if (!b){
+                AlertDialog.Builder al = new AlertDialog.Builder(context);
+                al.setTitle("Not connected to server");
+                al.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                al.show();
+            }
+            editor.putString("servIp", textViewIp.getText().toString());
+            editor.putString("servPort", textViewPort.getText().toString());
+            editor.putString("servPasswd", textViewPassw.getText().toString());
+            editor.commit();
+        }
     }
 }

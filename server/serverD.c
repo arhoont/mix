@@ -52,11 +52,28 @@ int magic(char *buf){
 //        printf("not end\n");
         return 3;
     }
+	// volume
     if (!(strcmp(tokens[2],"volume"))){
         char str[100];
         sprintf(str,"pactl set-sink-volume '%d' %s",sink,tokens[3]);
         system(str);
 //        printf("%s === \n",str);
+    }
+	// play
+    if (!(strcmp(tokens[2],"play"))){
+        system("rhythmbox-client --play");
+    }
+	// pause
+    if (!(strcmp(tokens[2],"pause"))){
+        system("rhythmbox-client --pause");
+    }
+	// next
+    if (!(strcmp(tokens[2],"next"))){
+        system("rhythmbox-client --next");
+    }
+	// prev
+    if (!(strcmp(tokens[2],"prev"))){
+        system("rhythmbox-client --previous");
     }
 }
 void becomeADaemon(){
