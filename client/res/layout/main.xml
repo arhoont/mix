@@ -1,100 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-        >
-    <TextView
-            android:layout_marginLeft="15dp"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Volume"
-            />
-    <SeekBar
-            android:id="@+id/volumeSekBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"/>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:orientation="horizontal"
-                  android:gravity="center"
-                  android:layout_width="fill_parent"
-                  android:layout_height="wrap_content">
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+         android:id="@android:id/tabhost"
+         android:layout_width="fill_parent"
+         android:layout_height="fill_parent">
 
-        <Button
-                android:id="@+id/VolumeOk"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ok"/>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+        <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+        <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
     </LinearLayout>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:orientation="horizontal"
-                  android:gravity="center"
-                  android:layout_width="fill_parent"
-                  android:layout_height="wrap_content">
-
-        <Button
-                android:id="@+id/Play"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Play"/>
-        <Button
-                android:id="@+id/Pause"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pause"/>
-        <Button
-                android:id="@+id/Prev"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Prev"/>
-        <Button
-                android:id="@+id/Next"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Next"/>
-
-
-    </LinearLayout>
-    <TextView
-            android:layout_marginLeft="15dp"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Ip"/>
-
-    <EditText
-            android:id="@+id/texIp"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="192.168.100.4"/>
-    <TextView
-            android:layout_marginLeft="15dp"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Port"/>
-    <EditText
-            android:id="@+id/texPort"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="3426"/>
-    <TextView
-            android:layout_marginLeft="15dp"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Password"/>
-    <EditText
-            android:id="@+id/texPassw"
-            android:password="true"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="123aaa"/>
-    <TextView
-            android:id="@+id/test"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="test"
-            />
-</LinearLayout>
-
+</TabHost>

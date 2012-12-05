@@ -1,112 +1,33 @@
 package com.mix;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
+import android.app.TabActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.view.View;
-import android.widget.Button;
-import android.widget.SeekBar;
-import android.widget.TextView;
+import android.widget.TabHost;
 
-import static android.view.View.*;
+public class ClientActivity extends TabActivity {
+    public void onCreate(Bundle savedInstanceState)   {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.main);
 
-public class ClientActivity extends Activity {
+    TabHost tabHost =  getTabHost();
 
-    SeekBar volumeSB;
-    TextView textViewIp;
-    TextView textViewPort;
-    TextView textViewPassw;
-    TextView testView;
-    NetWClass netWClass;
-    SharedPreferences activityPreferences;
-    SharedPreferences.Editor editor;
-    Context context;
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-        context=this;
-        volumeSB=(SeekBar) findViewById(R.id.volumeSekBar);
-        Button volumeOk=(Button) findViewById(R.id.VolumeOk);
-        textViewIp = (TextView) findViewById(R.id.texIp);
-        textViewPort = (TextView) findViewById(R.id.texPort);
-        textViewPassw = (TextView) findViewById(R.id.texPassw);
-
-        activityPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        editor = activityPreferences.edit();
-
-        textViewIp.setText(activityPreferences.getString("servIp", "no"));
-        textViewPort.setText(activityPreferences.getString("servPort", "no"));
-        textViewPassw.setText(activityPreferences.getString("servPasswd", "no"));
-
-        netWClass = new NetWClass(textViewIp, textViewPort, textViewPassw);
-        testView = (TextView) findViewById(R.id.test);
-        volumeOk.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                boolean b=netWClass.changeVol(volumeSB.getProgress(),testView);
-                if (!b){
-                    AlertDialog.Builder al = new AlertDialog.Builder(context);
-                    al.setTitle("Not connected to server");
-                    al.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-
-                        }
-                    });
-                    al.show();
-                }
-                editor.putString("servIp", textViewIp.getText().toString());
-                editor.putString("servPort", textViewPort.getText().toString());
-                editor.putString("servPasswd", textViewPassw.getText().toString());
-                editor.commit();
-            }
-        });
-
-        Button play = (Button)findViewById(R.id.Play);
-        play.setOnClickListener(new Listner("play"));
-
-        Button pause = (Button)findViewById(R.id.Pause);
-        pause.setOnClickListener(new Listner("pause"));
-
-        Button next = (Button)findViewById(R.id.Next);
-        next.setOnClickListener(new Listner("next"));
-
-        Button prev = (Button)findViewById(R.id.Prev);
-        prev.setOnClickListener(new Listner("prev"));
+    TabHost.TabSpec mixer = tabHost.newTabSpec("tab1");
+    mixer.setIndicator("Mixer");
+    Intent photosIntent = new Intent(this, Mixer.class);
+    mixer.setContent(photosIntent);
 
 
+    TabHost.TabSpec present = tabHost.newTabSpec("tab2");
+    present.setIndicator("Present");
+    Intent songsIntent = new Intent(this, Presentation.class);
+    present.setContent(songsIntent);
 
-    }
-    class Listner implements OnClickListener {
-        String val;
 
-        Listner(String val) {
-            this.val = val;
-        }
+    tabHost.addTab(mixer);
+    tabHost.addTab(present);
 
-        @Override
-        public void onClick(View view) {
-            boolean b=netWClass.changeTrack(val);
-            if (!b){
-                AlertDialog.Builder al = new AlertDialog.Builder(context);
-                al.setTitle("Not connected to server");
-                al.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+}
 
-                    }
-                });
-                al.show();
-            }
-            editor.putString("servIp", textViewIp.getText().toString());
-            editor.putString("servPort", textViewPort.getText().toString());
-            editor.putString("servPasswd", textViewPassw.getText().toString());
-            editor.commit();
-        }
-    }
 }
