@@ -75,6 +75,15 @@ int magic(char *buf){
     if (!(strcmp(tokens[2],"prev"))){
         system("rhythmbox-client --previous");
     }
+    if (!(strcmp(tokens[2],"enter"))){
+        system("xdotool key KP_Enter");
+    }
+    if (!(strcmp(tokens[2],"left"))){
+        system("xdotool key KP_Left");
+    }
+    if (!(strcmp(tokens[2],"right"))){
+        system("xdotool key KP_Right");
+    }
 }
 void becomeADaemon(){
     pid_t pid, sid;
