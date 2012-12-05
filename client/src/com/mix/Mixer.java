@@ -35,6 +35,7 @@ public class Mixer extends Activity{
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.player);
+
         context=this;
         volumeSB=(SeekBar) findViewById(R.id.volumeSekBar);
         Button volumeOk=(Button) findViewById(R.id.VolumeOk);

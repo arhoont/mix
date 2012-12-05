@@ -59,4 +59,19 @@ public class NetWClass {
             }
          return true;
     }
+//    public boolean xdotKeys(String val){
+//        try {
+//            Socket socket = new Socket(serverTextIp.getText().toString(),
+//                    Integer.valueOf(serverTextPort.getText().toString()));
+//            OutputStream os = socket.getOutputStream();
+//            String str = "v1 "+serverTextPassw.getText().toString()+ " "+val +" 000 " + " end ";
+//            os.write(str.getBytes());
+//            os.flush();
+//            socket.close();
+//        } catch (IOException e) {
+//
+//            return false;
+//        }
+//        return true;
+//    }
 }
